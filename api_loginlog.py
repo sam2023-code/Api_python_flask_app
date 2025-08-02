@@ -36,3 +36,22 @@ def api_loginlog_post_data(data):
     conn.close()
     
     return jsonify({"message": "Data added successfully!", "id": message_id}), 201
+
+
+def api_loginlog_post_data_visitor(data):
+    # Extract data from the request
+    username = "-"
+    usertype = "visitor"
+
+    if not username or not usertype:
+        return jsonify({"error": "Username and usertype are required!"}), 400
+    
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO login_log (username, usertype) VALUES (%s,%s) RETURNING id;', (username,usertype))
+    message_id = cursor.fetchone()[0]
+    conn.commit()
+    cursor.close()
+    conn.close()
+    
+    return jsonify({"message": "Data added successfully!", "id": message_id}), 201
