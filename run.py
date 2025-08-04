@@ -72,8 +72,8 @@ def data_messageboard_delete_by_id(id):
 def data_login_post():
     return api_login_auth_post_check(request.json) 
 
-
 if __name__ == '__main__':
     #app.run(host='0.0.0.0', port=5000) # to make it accessible externally.
-    #app.run(debug=True, port=5000)  # Run the app with debug mode and port 5000
-    app.run(debug=True,host='0.0.0.0')  # Run the app with debug mode and port 5000
+    #app.run(debug=True,host='0.0.0.0')  # Run the app with debug mode and port 5000
+    context = (r'ssl/cert.pem', r'ssl/key.pem')
+    app.run(host="0.0.0.0", port=8443, ssl_context=context)

@@ -9,13 +9,10 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install PostgreSQL development packages
-RUN apt-get update && apt-get install -y libpq-dev
+#RUN apt-get update && apt-get install -y libpq-dev
 
 # Install the dependencies
 RUN pip install --upgrade pip 
-
-# Install psycopg2 or psycopg2-binary
-#RUN pip install psycopg2-binary  # Use this line if you want to avoid building from source
 
 # Install requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt

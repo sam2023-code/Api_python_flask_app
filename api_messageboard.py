@@ -1,9 +1,9 @@
 from flask import Flask, jsonify, request
 from database_connect import get_db_connection  # Import the database connection function
 
-from flask_cors import CORS
-app = Flask(__name__, template_folder='templates')  # Ensure this line exists
-CORS(app, resources={r"*": {"origins": "*"}})
+#from flask_cors import CORS
+#app = Flask(__name__, template_folder='templates')  # Ensure this line exists
+#CORS(app, resources={r"*": {"origins": "*"}})
 
 def api_messageboard_get_data():
     conn = get_db_connection()

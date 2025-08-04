@@ -1,0 +1,12 @@
+\\wsl.localhost\Ubuntu\home\samchan\python\
+
+open wsl
+
+# Convert .p12 to .pem (this will prompt for the password for the .p12 file)
+openssl pkcs12 -in keystore.p12 -out keystore.pem -nodes
+
+# Extract the certificate
+openssl x509 -in keystore.pem -out cert.pem
+
+# Extract the private key
+openssl pkey -in keystore.pem -out key.pem
