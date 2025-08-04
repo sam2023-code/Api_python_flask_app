@@ -1,6 +1,9 @@
 from flask import Flask, jsonify, request
 from database_connect import get_db_connection  # Import the database connection function
 
+from flask_cors import CORS
+app = Flask(__name__, template_folder='templates')  # Ensure this line exists
+CORS(app, resources={r"*": {"origins": "*"}})
 
 def api_messageboard_get_data():
     conn = get_db_connection()
@@ -38,10 +41,13 @@ def api_messageboard_post_data(data):
     return jsonify({"message": "Data added successfully!", "id": message_id}), 201
 
 
-def api_messageboard_update_status_by_id(data):
+def api_messageboard_update_status_by_id(id , taskfinish):
 
-    msg_id = request.json.get('id')
-    msg_taskfinish = request.json.get('taskfinish')
+    msg_id = id
+    msg_taskfinish = taskfinish
+
+    print(msg_id)  
+    print(msg_taskfinish)  
 
     if not msg_taskfinish :
         return jsonify({"error": "content are required!"}), 400
@@ -59,7 +65,7 @@ def api_messageboard_update_status_by_id(data):
     # Delete the message
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute('UPDATE messageboard set taskfinish = %s WHERE id = %s', (msg_taskfinish , msg_id ))
+    cursor.execute('UPDATE messageboard SET taskfinish = %s WHERE id = %s', (msg_taskfinish , msg_id ))
     conn.commit()
     cursor.close()
     conn.close()

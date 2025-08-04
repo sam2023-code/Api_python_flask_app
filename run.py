@@ -1,4 +1,5 @@
 from flask import Flask,render_template, jsonify, request
+from flask_cors import CORS
 import psycopg2
 from psycopg2 import sql
 from database_connect import get_db_connection  # Import the database connection function
@@ -8,6 +9,8 @@ from api_messageboard import api_messageboard_get_data,api_messageboard_post_dat
 from api_login_auth import api_login_auth_post_check
 
 app = Flask(__name__, template_folder='templates')  # Ensure this line exists
+#CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, resources={r"*": {"origins": "*"}})
 app.json.sort_keys = False # dont want to sort the json column name
 
 @app.route('/')
@@ -56,9 +59,10 @@ def data_messageboard_get():
 def data_messageboard_post():
     return api_messageboard_post_data(request.json) 
 
-@app.route('/api/messages', methods=['PUT'])
-def data_messageboard_update():
-    return api_messageboard_update_status_by_id(request.json) 
+@app.route('/api/messages/<int:id>', methods=['PUT'])
+def data_messageboard_update(id):
+    api_taskfinish = request.json.get('taskfinish')
+    return api_messageboard_update_status_by_id(id, api_taskfinish) 
 
 @app.route('/api/messages/<int:id>', methods=['DELETE'])
 def data_messageboard_delete_by_id(id):

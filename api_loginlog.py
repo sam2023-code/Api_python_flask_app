@@ -12,10 +12,10 @@ def api_loginlog_get_data():
     # Format the data
     formatted_messages = [
             {'id': msg[0]
-            , 'usrname': msg[1]
-            , 'usrtype': msg[2]
-            , 'datetime': msg[3]
-            , 'datetime_string': msg[4]
+            , 'usertype': msg[1]
+            , 'username': msg[2]
+            , 'loginDateTime': msg[3]
+            , 'loginDateTimeString': msg[4]
             } for msg in messages]
     return jsonify(formatted_messages)
 
