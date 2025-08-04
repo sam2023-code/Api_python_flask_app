@@ -17,6 +17,11 @@ app.json.sort_keys = False # dont want to sort the json column name
 def home():
     return render_template('index.html')  # Ensure this template exists
 
+@app.route('/api_list')
+def api_list():
+    return render_template('api_list.html')  # Ensure this template exists
+    #home_page = str(request.base_url).replace(str(request.path),"")
+
 @app.route('/api/test', methods=['GET'])
 def get_test():
     data = {"message": "Hello, World!","status": "success"}
@@ -74,6 +79,6 @@ def data_login_post():
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0', port=5000) # to make it accessible externally.
-    #app.run(debug=True,host='0.0.0.0')  # Run the app with debug mode and port 5000
-    context = (r'ssl/cert.pem', r'ssl/key.pem')
-    app.run(host="0.0.0.0", port=8443, ssl_context=context)
+    app.run(debug=True,host='0.0.0.0')  # Run the app with debug mode and port 5000
+    #context = (r'ssl/cert.pem', r'ssl/key.pem')
+    #app.run(host="0.0.0.0", port=8443, ssl_context=context)
