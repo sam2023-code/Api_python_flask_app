@@ -8,6 +8,8 @@ from api_employees import api_employees_get_data,api_employees_get_data_by_id , 
 from api_messageboard import api_messageboard_get_data,api_messageboard_post_data,api_messageboard_update_status_by_id,api_messageboard_delete_data_by_id
 from api_login_auth import api_login_auth_post_check
 
+from func_twilio import twilio_send_sms
+
 app = Flask(__name__, template_folder='templates')  # Ensure this line exists
 #CORS(app, resources={r"/api/*": {"origins": "*"}})
 CORS(app, resources={r"*": {"origins": "*"}})
@@ -21,6 +23,11 @@ def home():
 def api_list():
     return render_template('api_list.html')  # Ensure this template exists
     #home_page = str(request.base_url).replace(str(request.path),"")
+
+#@app.route('/twilio_test')
+@app.route('/api/sms_sendout' , methods=['POST'])
+def twilio_test():
+    return twilio_send_sms( request.json  )
 
 @app.route('/api/test', methods=['GET'])
 def get_test():
@@ -37,7 +44,7 @@ def data_loginlog_post():
 
 @app.route('/api/login-logs/visitor', methods=['POST'])
 def data_loginlog_post_visitor():
-    return api_loginlog_post_data_visitor(request.json)
+    return api_loginlog_post_data_visitor()
 
 
 @app.route('/users', methods=['GET'])
@@ -79,6 +86,6 @@ def data_login_post():
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0', port=5000) # to make it accessible externally.
-    app.run(debug=True,host='0.0.0.0')  # Run the app with debug mode and port 5000
-    #context = (r'ssl/cert.pem', r'ssl/key.pem')
-    #app.run(host="0.0.0.0", port=8443, ssl_context=context)
+    #app.run(debug=True,host='0.0.0.0')  # Run the app with debug mode and port 5000
+    context = (r'ssl/cert.pem', r'ssl/key.pem')
+    app.run(host="0.0.0.0", port=8443, ssl_context=context)

@@ -38,10 +38,12 @@ def api_loginlog_post_data(data):
     return jsonify({"message": "Data added successfully!", "id": message_id}), 201
 
 
-def api_loginlog_post_data_visitor(data):
+def api_loginlog_post_data_visitor():
     # Extract data from the request
     username = "-"
     usertype = "visitor"
+
+    print(usertype)  
 
     if not username or not usertype:
         return jsonify({"error": "Username and usertype are required!"}), 400
