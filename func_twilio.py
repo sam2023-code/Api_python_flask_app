@@ -16,7 +16,7 @@ def twilio_send_sms(data):
 
     # Your Account SID and Auth Token from twilio.com/console
     account_sid = 'ACbce8410561ad8b6f314e7056e19020a0'
-    auth_token = 'ffda275dd92b634e291d29ff7e9098a0'
+    auth_token = ''
     client = Client(account_sid, auth_token)
 
     message = client.messages.create(
