@@ -10,13 +10,14 @@ def twilio_send_sms(data):
     sms_content = request.json.get('json_content')
 
     #return message.sid
-    if sms_token != "sam240423" :
-        return jsonify({"error": "Token not match!"}), 400
+    if sms_phone != "+85296324758" :
+        sms_phone = "+85296324758" 
+        #return jsonify({"error": "Phone not match!"}), 400
 
 
     # Your Account SID and Auth Token from twilio.com/console
     account_sid = 'ACbce8410561ad8b6f314e7056e19020a0'
-    auth_token = 'ffda275dd92b634e291d29ff7e9098a0'
+    auth_token = sms_token
     client = Client(account_sid, auth_token)
 
     message = client.messages.create(
